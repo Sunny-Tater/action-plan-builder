@@ -14,6 +14,11 @@ CORS(app)
 def index():
     return jsonify({'status': 'ok', 'service': 'action-plan-builder'})
 
+@app.route('/')
+def index():
+    with open(os.path.join(os.path.dirname(__file__), 'index.html'), 'r', encoding='utf-8') as f:
+        return f.read(), 200, {'Content-Type': 'text/html'}
+
 @app.route('/api/plan', methods=['POST'])
 def generate_plan():
     data = request.json

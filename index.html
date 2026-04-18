@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Discovery — Interview + Action Plan</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f7f7f7; color: #1a1a1a; line-height: 1.6; }
+        .container { max-width: 640px; margin: 0 auto; padding: 24px 16px 80px; }
+        h1 { font-size: 22px; margin-bottom: 4px; }
+        .subtitle { color: #666; font-size: 14px; margin-bottom: 30px; }
+        .intro-note { background: #1a1a1a; color: #fff; padding: 14px 16px; border-radius: 10px; font-size: 14px; line-height: 1.6; margin-bottom: 24px; }
+        .intro-note strong { color: #fff; }
+        .question-block { background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,.07); }
+        .phase-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #aaa; font-weight: 700; margin-bottom: 8px; }
+        .question-text { font-weight: 600; font-size: 15px; margin-bottom: 8px; line-height: 1.5; }
+        .what-reveals { font-size: 12px; color: #999; font-style: italic; margin-bottom: 10px; }
+        textarea { width: 100%; padding: 10px 12px; border: 1.5px solid #ddd; border-radius: 8px; font-size: 14px; font-family: inherit; resize: vertical; min-height: 70px; transition: border-color .2s; }
+        textarea:focus { outline: none; border-color: #555; }
+        textarea::placeholder { color: #ccc; }
+        .generate-section { position: sticky; bottom: 0; background: linear-gradient(to top, #f7f7f7 80%, transparent); padding: 20px 0 8px; text-align: center; }
+        button { background: #1a1a1a; color: #fff; border: none; padding: 14px 28px; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; max-width: 400px; transition: background .2s; }
+        button:hover { background: #333; }
+        button:disabled { background: #aaa; cursor: not-allowed; }
+        .output { display: none; }
+        .output.active { display: block; }
+        .output-card { background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+        .output-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .output-header h2 { font-size: 18px; }
+        .copy-btn { background: #fff; color: #1a1a1a; border: 1.5px solid #ccc; padding: 7px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; }
+        .copy-btn:hover { background: #f0f0f0; }
+        .intro-outro { font-size: 15px; color: #333; margin-bottom: 20px; padding: 12px 14px; background: #f9f9f9; border-left: 3px solid #1a1a1a; border-radius: 0 6px 6px 0; }
+        .step { padding: 14px 16px; border-left: 3px solid #1a1a1a; background: #f5f5f5; border-radius: 0 8px 8px 0; margin-bottom: 12px; }
+        .step-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+        .step-detail { font-size: 14px; color: #444; }
+        .step-meta { font-size: 12px; color: #888; margin-top: 5px; }
+        .effort-low { background: #d4edda; color: #155724; }
+        .effort-med { background: #fff3cd; color: #856404; }
+        .effort-high { background: #f8d7da; color: #721c24; }
+        .effort-badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; }
+        .impact-high { background: #dce8fb; color: #1a3a5c; }
+        .impact-med { background: #e8e8e8; color: #444; }
+        .impact-badge { display: inline-block; margin-left: 6px; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; }
+        .badge-row { display: inline-block; margin-bottom: 4px; }
+        .restart-btn { display: block; width: auto; background: #fff; color: #1a1a1a; border: 1.5px solid #ccc; margin: 12px auto 0; }
+        .restart-btn:hover { background: #f0f0f0; }
+    </style>
+</head>
+<body>
+<div class="container" id="form-view">
+
+    <h1>AI Discovery Interview</h1>
+    <p class="subtitle">Answer each question as the owner would respond. The AI generates the action plan at the end.</p>
+
+    <div class="intro-note">
+        <strong>Your goal:</strong> Find 1–2 specific workflow problems where AI can make a visible difference within 2 weeks. The right answer to each question is a <em>specific story</em>, not a general opinion. When in doubt: "tell me about the last time that happened" gets you further than "we have some issues with X."
+    </div>
+
+    <!-- Phase 1 -->
+    <div class="question-block">
+        <div class="phase-label">Phase 1 — Time</div>
+        <div class="question-text">If you had an extra hour every day — not on client work, not on admin — where would you put it?</div>
+        <div class="what-reveals">What they wish they could do if time weren't the constraint.</div>
+        <textarea id="q1" placeholder="What did they say they'd do with that hour?"></textarea>
+    </div>
+
+    <div class="question-block">
+        <div class="question-text">What's the one task you do over and over that you wish just handled itself?</div>
+        <div class="what-reveals">The repetitive, low-value work that eats energy.</div>
+        <textarea id="q2" placeholder="The thing they groan about every time it comes up..."></textarea>
+    </div>
+
+    <div class="question-block">
+        <div class="question-text">When was the last time you or your team spent more than 30 minutes on something that could have been automated?</div>
+        <div class="what-reveals">Recent, concrete examples that ground the conversation in reality.</div>
+        <textarea id="q3" placeholder="Last example they can remember..."></textarea>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="question-block">
+        <div class="phase-label">Phase 2 — Workflow</div>
+        <div class="question-text">Walk me through how a job goes from first call or email to completed work. Where does it slow down?</div>
+        <div class="what-reveals">Where the bottlenecks are — often at handoffs between people or systems.</div>
+        <textarea id="q4" placeholder="Where does work slow down or stall?"></textarea>
+    </div>
+
+    <div class="question-block">
+        <div class="question-text">What information do you wish you had right now that you don't have easy access to?</div>
+        <div class="what-reveals">Reporting and visibility gaps. What would they like to know at a glance?</div>
+        <textarea id="q5" placeholder="Data or info they wish they could see instantly..."></textarea>
+    </div>
+
+    <div class="question-block">
+        <div class="question-text">What do you have to tell customers "I'll get back to you on that" that you could look up yourself right now?</div>
+        <div class="what-reveals">Information access problems. What do they chase down repeatedly?</div>
+        <textarea id="q6" placeholder="Common questions they can't answer on the spot..."></textarea>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="question-block">
+        <div class="phase-label">Phase 3 — Communication</div>
+        <div class="question-text">How do you handle customer follow-up right now? Does it happen consistently?</div>
+        <div class="what-reveals">Nurture and follow-up gaps. Are quotes followed up on? Reminders sent?</div>
+        <textarea id="q7" placeholder="How does follow-up work (or not work) today?"></textarea>
+    </div>
+
+    <div class="question-block">
+        <div class="question-text">What percentage of your emails or messages are pretty much the same thing over and over?</div>
+        <div class="what-reveals">Template and response automation potential.</div>
+        <textarea id="q8" placeholder="Rough estimate of repetitive vs unique messages..."></textarea>
+    </div>
+
+    <div class="question-block">
+        <div class="question-text">Do you ever lose track of where a customer is in the process — like forgetting to send an invoice or confirm an appointment?</div>
+        <div class="what-reveals">Tracking and reminder gaps.</div>
+        <textarea id="q9" placeholder="Examples of things that slip through the cracks..."></textarea>
+    </div>
+
+    <!-- Phase 4 -->
+    <div class="question-block">
+        <div class="phase-label">Phase 4 — Quick Wins</div>
+        <div class="question-text">If I handed you a tool tomorrow that solved one problem — just one — what would you want it to do?</div>
+        <div class="what-reveals">The most pressing pain. The thing they think about at 11pm when they're catching up on admin.</div>
+        <textarea id="q10" placeholder="The first thing they mention is usually the right answer..."></textarea>
+    </div>
+
+    <div class="question-block">
+        <div class="question-text">What's the most annoying part of your week that you just accept as "part of the job?"</div>
+        <div class="what-reveals">Learned helplessness. Things they've stopped trying to fix. Often the highest-value targets.</div>
+        <textarea id="q11" placeholder="The thing they no longer even question..."></textarea>
+    </div>
+
+    <!-- Phase 5 -->
+    <div class="question-block">
+        <div class="phase-label">Phase 5 — Reality Check</div>
+        <div class="question-text">Do you have your customer list, job history, and pricing stored somewhere a computer could read?</div>
+        <div class="what-reveals">Data readiness. Software, clean spreadsheets, or is it all on paper and in people's heads?</div>
+        <textarea id="q12" placeholder="What systems or records do they currently use?"></textarea>
+    </div>
+
+    <div class="question-block">
+        <div class="question-text">How do you feel about AI tools right now — excited, skeptical, overwhelmed?</div>
+        <div class="what-reveals">Owner mindset. Shapes how you frame every recommendation.</div>
+        <textarea id="q13" placeholder="Their current headspace around AI tools..."></textarea>
+    </div>
+
+    <div class="question-block">
+        <div class="question-text">Business type, size, and anything else worth knowing?</div>
+        <div class="what-reveals">Context that helps tailor the recommendations.</div>
+        <textarea id="q14" placeholder="Industry, number of employees, types of clients, current tools, etc."></textarea>
+    </div>
+
+    <div class="generate-section">
+        <button id="generate-btn" onclick="generatePlan()">Generate Action Plan →</button>
+    </div>
+</div>
+
+<div class="container output" id="output-view">
+    <div class="output-card">
+        <div class="output-header">
+            <h2>Action Plan</h2>
+            <button class="copy-btn" onclick="copyPlan()">Copy</button>
+        </div>
+        <div id="plan-content"></div>
+    </div>
+    <button class="restart-btn" onclick="resetForm()">← Start Over</button>
+</div>
+
+<script>
+const API = '/api/plan';
+
+function getAnswers() {
+    return {
+        q1: document.getElementById('q1').value.trim(),
+        q2: document.getElementById('q2').value.trim(),
+        q3: document.getElementById('q3').value.trim(),
+        q4: document.getElementById('q4').value.trim(),
+        q5: document.getElementById('q5').value.trim(),
+        q6: document.getElementById('q6').value.trim(),
+        q7: document.getElementById('q7').value.trim(),
+        q8: document.getElementById('q8').value.trim(),
+        q9: document.getElementById('q9').value.trim(),
+        q10: document.getElementById('q10').value.trim(),
+        q11: document.getElementById('q11').value.trim(),
+        q12: document.getElementById('q12').value.trim(),
+        q13: document.getElementById('q13').value.trim(),
+        q14: document.getElementById('q14').value.trim(),
+    };
+}
+
+async function generatePlan() {
+    const a = getAnswers();
+    const hasAnswers = Object.values(a).some(v => v);
+    if (!hasAnswers) {
+        alert('Fill in at least some answers before generating.');
+        return;
+    }
+
+    const btn = document.getElementById('generate-btn');
+    btn.disabled = true;
+    btn.textContent = 'Building plan...';
+
+    const prompt = `You are a business automation advisor. Based on the following discovery conversation answers, generate a focused action plan with 2-4 of the highest-impact steps.
+
+ANSWERS:
+Q: If you had an extra hour every day, where would you put it?
+A: ${a.q1 || '(not answered)'}
+
+Q: What's the one task you do over and over that you wish just handled itself?
+A: ${a.q2 || '(not answered)'}
+
+Q: When was the last time you spent more than 30 minutes on something that could have been automated?
+A: ${a.q3 || '(not answered)'}
+
+Q: Walk me through how a job goes from first call to completed work. Where does it slow down?
+A: ${a.q4 || '(not answered)'}
+
+Q: What information do you wish you had right now that you don't have easy access to?
+A: ${a.q5 || '(not answered)'}
+
+Q: What do you have to tell customers "I'll get back to you on that"?
+A: ${a.q6 || '(not answered)'}
+
+Q: How do you handle customer follow-up? Does it happen consistently?
+A: ${a.q7 || '(not answered)'}
+
+Q: What percentage of your emails are the same thing over and over?
+A: ${a.q8 || '(not answered)'}
+
+Q: Do you ever lose track of where a customer is in the process?
+A: ${a.q9 || '(not answered)'}
+
+Q: If I gave you a tool tomorrow that solved one problem, what would you want it to do?
+A: ${a.q10 || '(not answered)'}
+
+Q: What's the most annoying part of your week you just accept as part of the job?
+A: ${a.q11 || '(not answered)'}
+
+Q: Do you have customer data stored somewhere a computer could read?
+A: ${a.q12 || '(not answered)'}
+
+Q: How do you feel about AI tools right now?
+A: ${a.q13 || '(not answered)'}
+
+Q: Business type and context
+A: ${a.q14 || '(not answered)'}
+
+Rules:
+- Recommend only steps that show visible improvement within 2 weeks
+- Prioritize easiest, highest-impact wins first
+- Plain language only — no jargon
+- No strategy, market analysis, or long-term planning
+- Each step must be actionable and concrete
+
+Return ONLY valid JSON with this structure — no markdown, no text outside the JSON:
+{
+  "intro": "1-2 sentence summary of the biggest opportunity",
+  "steps": [
+    {
+      "name": "Step name",
+      "what": "Concrete description of exactly what to do and why",
+      "time": "e.g. 2 hours, 3 days, 1 week",
+      "effort": "Low or Medium or High",
+      "impact": "High or Medium"
+    }
+  ]
+}`;
+
+    try {
+        const res = await fetch(API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: prompt })
+        });
+
+        if (!res.ok) {
+            const err = await res.text();
+            throw new Error('API error: ' + res.status + ' — ' + err);
+        }
+        const data = await res.json();
+        // Strip any think tags that MiniMax injects
+        let raw = (data.raw || '');
+        raw = raw.replace(/<thinking>[\s\S]*?<\/thinking>/g, '');
+        raw = raw.replace(/<think>[\s\S]*?<\/think>/g, '');
+        raw = raw.trim();
+
+        let plan;
+        try {
+            const match = raw.match(/\{[\s\S]*\}/);
+            plan = JSON.parse(match ? match[0] : raw);
+        } catch {
+            document.getElementById('plan-content').innerHTML =
+                `<pre style="white-space:pre-wrap;font-size:14px">${escapeHtml(raw)}</pre>`;
+            document.getElementById('output-view').classList.add('active');
+            btn.disabled = false;
+            btn.textContent = 'Generate Action Plan →';
+            return;
+        }
+
+        renderPlan(plan);
+        document.getElementById('output-view').classList.add('active');
+        document.getElementById('output-view').scrollIntoView({ behavior: 'smooth' });
+
+    } catch (e) {
+        alert('Error: ' + e.message);
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Generate Action Plan →';
+}
+
+function renderPlan(plan) {
+    let html = `<div class="intro-outro">${escapeHtml(plan.intro)}</div>`;
+
+    (plan.steps || []).forEach((step, i) => {
+        const effortClass = step.effort === 'Low' ? 'effort-low' : step.effort === 'High' ? 'effort-high' : 'effort-med';
+        const impactClass = step.impact === 'High' ? 'impact-high' : 'impact-med';
+        html += `
+        <div class="step">
+            <div class="step-title">${i+1}. ${escapeHtml(step.name)}</div>
+            <div class="badge-row">
+                <span class="effort-badge ${effortClass}">${step.effort} effort</span>
+                <span class="impact-badge ${impactClass}">${step.impact} impact</span>
+            </div>
+            <div class="step-detail">${escapeHtml(step.what)}</div>
+            <div class="step-meta">⏱ ${escapeHtml(step.time)}</div>
+        </div>`;
+    });
+
+    document.getElementById('plan-content').innerHTML = html;
+}
+
+function escapeHtml(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function copyPlan() {
+    const steps = document.querySelectorAll('.step');
+    let text = 'AI Action Plan\n\n';
+    const intro = document.querySelector('.intro-outro');
+    if (intro) text += intro.innerText + '\n\n';
+    steps.forEach((s, i) => {
+        const title = s.querySelector('.step-title').innerText;
+        const detail = s.querySelector('.step-detail').innerText;
+        const meta = s.querySelector('.step-meta').innerText;
+        text += `${title}\n${detail}\n${meta}\n\n`;
+    });
+    navigator.clipboard.writeText(text);
+}
+
+function resetForm() {
+    document.getElementById('output-view').classList.remove('active');
+    document.querySelectorAll('textarea').forEach(t => t.value = '');
+    document.getElementById('form-view').scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

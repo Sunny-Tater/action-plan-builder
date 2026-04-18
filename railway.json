@@ -1,0 +1,13 @@
+{
+  "$schema": "https://railway.app/schema.json",
+  "build": {
+    "builder": "NIXPACKS"
+  },
+  "deploy": {
+    "numReplicas": 1,
+    "startCommand": "gunicorn app:app --host 0.0.0.0 --port ${PORT:-5000}",
+    "healthCheckPath": "/",
+    "restartPolicyType": "always",
+    "restartThreshold": 60
+  }
+}
